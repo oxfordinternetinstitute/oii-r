@@ -9,7 +9,7 @@ rm -rf *.tar.gz
 echo "devtools::document()" | R --no-save
 R CMD build .
 mv oii_*.tar.gz oii.tar.gz
-R CMD check oii.tar.gz
+R CMD check --as-cran oii.tar.gz
 git add oii.tar.gz
 git commit -m "Generated on `date`"
 git push -f origin gh-pages

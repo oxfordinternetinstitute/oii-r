@@ -28,7 +28,6 @@
 #' @seealso
 #' \code{\link{summary}}, \code{\link{min}}, \code{\link{median}}, \code{\link{mean}}, \code{\link{max}}, \code{\link{sd}},
 #' \code{\link{is.na}}, \code{\link{is.numeric}}, \code{\link[rapportools]{skewness}}, \code{\link[rapportools]{kurtosis}}, \code{\link{var}}
-#' @importFrom("stats", "chisq.test", "median", "quantile", "sd", "var")
 #' @examples
 #'
 #' #Generate data from a normal distribution with mean 0 and sd 1
