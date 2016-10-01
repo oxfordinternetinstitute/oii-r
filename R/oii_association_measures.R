@@ -168,7 +168,7 @@ tied.pairs <- function(x,y=NULL) {
 #'   \item{tauc}{Stuart's tau-c}
 #' @export
 #' @seealso
-#' \code{\link{oii.xtab}}, \code{\link[Deducer]{likelihood.test}}, \code{\link[rapport]{lambda.test}},
+#' \code{\link{oii.xtab}}, \code{\link[Deducer]{likelihood.test}}, \code{\link[rapportools]{lambda.test}},
 #' \code{\link{concordant.pairs}}, \code{\link{discordant.pairs}}, \code{\link{tied.pairs}}
 #' 
 #' @examples
@@ -195,9 +195,9 @@ association.measures <- function(x,y=NULL,warnings=FALSE){
 	wr <- sum( rowSums(tab)^2 )
 	wc <- sum( colSums(tab)^2 )
 	if (!warnings) {
-		xsq <- suppressWarnings(chisq.test(tab))
+		xsq <- suppressWarnings(stats::chisq.test(tab))
 	} else {
-		xsq <- chisq.test(tab)
+		xsq <- stats::chisq.test(tab)
 	}
 
 	gamma <- (c - d) / (c + d)

@@ -22,12 +22,13 @@
 #'   \item{median}{The median value of \code{x} after missing values are removed. See \code{\link{median}}}
 #'   \item{p25}{The 25th percentile of \code{x} after missing values are removed}
 #'   \item{p75}{The 75th percentile of \code{x} after missing values are removed}
-#'   \item{skewness}{The skewness coefficient for \code{x} after missing values are removed. See \code{\link[rapport]{skewness}}}
-#'   \item{kurtosis}{The kurtosis coefficient for \code{x} after missing values are removed. See \code{\link[rapport]{kurtosis}}}
+#'   \item{skewness}{The skewness coefficient for \code{x} after missing values are removed. See \code{\link[rapportools]{skewness}}}
+#'   \item{kurtosis}{The kurtosis coefficient for \code{x} after missing values are removed. See \code{\link[rapportools]{kurtosis}}}
 #' @export
 #' @seealso
 #' \code{\link{summary}}, \code{\link{min}}, \code{\link{median}}, \code{\link{mean}}, \code{\link{max}}, \code{\link{sd}},
-#' \code{\link{is.na}}, \code{\link{is.numeric}}, \code{\link[rapport]{skewness}}, \code{\link[rapport]{kurtosis}}, \code{\link{var}}
+#' \code{\link{is.na}}, \code{\link{is.numeric}}, \code{\link[rapportools]{skewness}}, \code{\link[rapportools]{kurtosis}}, \code{\link{var}}
+#' @importFrom("stats", "chisq.test", "median", "quantile", "sd", "var")
 #' @examples
 #'
 #' #Generate data from a normal distribution with mean 0 and sd 1
@@ -50,21 +51,21 @@ oii.summary<-function(x,extended=FALSE,warnings=FALSE) {
 }
 
 oii.summary.stats<-function(x,extended=FALSE) {
-	quantiles<-quantile(x,probs=c(.25,.75),na.rm=TRUE)
+	quantiles<-stats::quantile(x,probs=c(.25,.75),na.rm=TRUE)
 	vals<-list(
 		varname=deparse(substitute(x,env=parent.frame())),
 		mean=mean(x,na.rm=TRUE),
-		median=median(x,na.rm=TRUE),
+		median=stats::median(x,na.rm=TRUE),
 		cases=sum(!is.na(x)),
 		min=min(x,na.rm=TRUE),
 		max=max(x,na.rm=TRUE),
 		na=sum(is.na(x)),
 		p25=quantiles["25%"],
 		p75=quantiles["75%"],
-		sd=sd(x,na.rm=TRUE),
+		sd=stats::sd(x,na.rm=TRUE),
 		skewness=tryCatch(rapportools::skewness(x, na.rm=TRUE), error=function(e) {rapport::skewness(x, na.rm=TRUE)}),
 		kurtosis=tryCatch(rapportools::kurtosis(x, na.rm=TRUE), error=function(e) {rapport::kurtosis(x, na.rm=TRUE)}),
-		var=var(x,na.rm=TRUE)
+		var=stats::var(x,na.rm=TRUE)
 	)
 	if (extended) {
 		class(vals) <- c("oiisummaryextended","oiisummary")
