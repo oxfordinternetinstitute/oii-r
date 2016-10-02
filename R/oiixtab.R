@@ -138,7 +138,7 @@ oii.xtab <-function(r, c=NULL, s=NULL, row=FALSE, col=FALSE, pctcell=FALSE, stat
 
 		#Goodman Kruskal Lambda
 		cat(paste0("\n","Goodman-Kruskal Lambda:\n"))
-		ll=tryCatch(rapportools::lambda.test(tab), error=function(e) {rapport::lambda.test(tab)})
+		ll=rapportools::lambda.test(tab)
 		cat("     Row dependent:", format(round(ll$col, digits=3), nsmall=3), "\n")
 		cat("  Column dependent:", format(round(ll$row, digits=3), nsmall=3), "\n")
 		cat("\n")
