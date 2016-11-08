@@ -77,7 +77,7 @@ oii.xtab <-function(r, c=NULL, s=NULL, row=FALSE, col=FALSE, pctcell=FALSE, stat
 		dfs<-split(r,r[,3])
 		levs<-names(dfs)
 		for (l in levs) {
-			cat(paste(rep("-",options("width")),collapse=""),"\n")
+			cat(paste(rep("-",as.numeric(options("width"))),collapse=""),"\n")
 			cat(varnames[3],":",l,"\n")
 			df<-dfs[[l]]
 			if (nrow(df)>0) {
