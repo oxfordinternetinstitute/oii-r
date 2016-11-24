@@ -117,10 +117,7 @@ tied.pairs <- function(x,y=NULL) {
 	
 	tied.first <- function(tab){ 
 		mult<-function(r,c) {
-			#print(paste(r,c))
-			#print((r.x > r) & (c.x == c))
-			#print(x[(r.x > r) & (c.x == c)] ) 
-			lr <- x[(r.x == r) & (c.x > c)]
+			lr <- tab[(r.x == r) & (c.x > c)]
 			tab[r,c]*sum(lr)
 		}
 
