@@ -14,6 +14,7 @@
 #' @param chicell Print cell contribution to pearson chi-square? Defaults to FALSE.
 #' @param chistd Print cell standardized residuals to pearson chi-square? Defaults to FALSE.
 #' @param varnames Names used to refer to \code{r}, \code{c}, and \code{s} in the printed output.
+#' @param include.missing Set to TRUE to include factor levels with no instances in the output. Default (FALSE) excludes them.
 #' @param ... Additional parameters to be passed to \code{\link[gmodels]{CrossTable}}.
 #' @param warnings a logical value indicating whether warnings should be shown (defaults to FALSE, no warnings).
 #' @export
@@ -56,7 +57,7 @@
 #' #at a time or use with(...) as shown above.
 #' 
 oii.xtab <-function(r, c=NULL, s=NULL, row=FALSE, col=FALSE, pctcell=FALSE, stats=FALSE, rescell=FALSE, 
-	chistd=FALSE, expcell=FALSE, chicell=FALSE, warnings=FALSE, varnames=NULL, ...) {
+	chistd=FALSE, expcell=FALSE, chicell=FALSE, warnings=FALSE, varnames=NULL, include.missing=FALSE, ...) {
 
 	if (is.null(varnames)) {
 		if (is.data.frame(r)) {
@@ -96,13 +97,13 @@ oii.xtab <-function(r, c=NULL, s=NULL, row=FALSE, col=FALSE, pctcell=FALSE, stat
 		cat("\nCross-tabulation of", varnames[1], "(rows) and", varnames[2],"(cols)\n")
 	}
 	
-	tab<-make.table(r,c,exclude=TRUE)
+	tab<-make.table(r,c,exclude=!(include.missing))
 	
 	#If either r or c has only one level, then we will not compute statistics.
 	stats<-stats & !any(dim(tab)<2)
 
 	#basic table with row percentages
-	gmodels::CrossTable(tab, missing.include=FALSE, prop.c=col, prop.r=row, digits=2,
+	gmodels::CrossTable(tab, missing.include=include.missing, prop.c=col, prop.r=row, digits=2,
 		prop.t=pctcell, resid=rescell, sresid=chistd, expected=expcell, prop.chisq=chicell,
 		chisq=stats, format=c("SPSS"), ...)
 
