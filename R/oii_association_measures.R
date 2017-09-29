@@ -83,7 +83,7 @@ discordant.pairs <- function(x,y=NULL){
 	## get sum(matrix values > r AND < c) 
 	## for each matrix[r, c] 
 	mat.ll <- function(r,c){ 
-		ll <- x[(r.x > r) & (c.x < c)] 
+		ll <- tab[(r.x > r) & (c.x < c)] 
 		sum(ll) 
 	} 
 
